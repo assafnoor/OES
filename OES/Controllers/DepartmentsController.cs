@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OES.Core;
 using OES.Core.Dto;
@@ -11,11 +12,22 @@ namespace OES.Controllers
     public class DepartmentsController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public DepartmentsController(IUnitOfWork unitOfWork)
+        public DepartmentsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
+        [HttpGet("GetDeptDetails")]
+        public async Task<IActionResult> GetDeptDetails()
+        {
+            string[] include = { "course_departments" };
+            var result = _unitOfWork.dept.GetDeptDetails();
+            var data = _mapper.Map<List<DeptDetailsDto>>(result);
+            return Ok(data);
+        }
+
         [HttpPost("Add")]
         public async Task<IActionResult> Add(DeptDto dto)
         {
@@ -24,6 +36,7 @@ namespace OES.Controllers
             _unitOfWork.complet();
             return Ok(dept);
         }
+   
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {

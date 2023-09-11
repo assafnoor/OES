@@ -1,4 +1,5 @@
-﻿using OES.Core.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OES.Core.Interfaces;
 using OES.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,11 @@ namespace OES.EF.Repositories
     {
         public Dept(ApplicationDbContext context) : base(context)
         {
+        }
+
+        public List<Department> GetDeptDetails()
+        {
+            return _context.Departments.Include(r=>r.rooms).Include(dc=>dc.course_departments).ThenInclude(c=>c.courses).ToList();
         }
     }
 }

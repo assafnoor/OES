@@ -11,6 +11,7 @@ namespace OES.Core
     public interface IUnitOfWork : IDisposable
     {
         IDept dept { get; }
+        IBase<Department> Department { get; }
         int complet();
     }
 }

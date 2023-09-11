@@ -9,5 +9,6 @@ namespace OES.Core.Interfaces
 {
     public interface IDept:IBase<Department>
     {
+        List<Department> GetDeptDetails();
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using OES.Core;
 using OES.Core.Interfaces;
 using OES.EF.Repositories;
+using OES.Core.Models;
 
 namespace OES.EF
 {
@@ -14,10 +15,12 @@ namespace OES.EF
     {
         private readonly ApplicationDbContext _context;
         public IDept dept { get;private set; }
+        public IBase<Department> Department { get;private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             dept=new Dept(_context);
+            Department=new Base<Department>(_context);
         }
         public int complet()
         {
