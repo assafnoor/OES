@@ -12,6 +12,10 @@ namespace OES.Helpers
               .ForMember(dest => dest.rooms, opt => opt.MapFrom(src => src.rooms.Select(b => b.Name).ToList()))
               .ForMember(dest => dest.courses, opt => opt.MapFrom(src => src.course_departments.Select(cd => cd.courses.Name).ToList()));
 
+            CreateMap<Room, RoomDetailsDto>()
+              .ForMember(dest => dest.Department, opt => opt.MapFrom(src => src.department.Name));
+             
+
         }
     }
 }
