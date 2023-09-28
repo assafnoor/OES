@@ -1,4 +1,5 @@
-﻿using OES.Core.Models;
+﻿using OES.Core.Dto;
+using OES.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace OES.Core.Interfaces
 {
     public interface IDept:IBase<Department>
     {
-        List<Department> GetDeptDetails();
+        List<Department> GetAllDeptWitheDetails();
+        List<Department> GetByIdDeptWitheDetails(int id);
+        bool isEnrolled(DeptDto dto, Department department, Course course);
     }
 }

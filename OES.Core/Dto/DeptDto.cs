@@ -11,5 +11,7 @@ namespace OES.Core.Dto
     {
         [StringLength(100)]
         public string name { get; set; }
+        public string RoomName { get; set; }
+        public string CourseName { get; set; }
     }
 }

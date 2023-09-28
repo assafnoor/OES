@@ -17,12 +17,28 @@ namespace OES.EF
         public IDept dept { get;private set; }
         public IBase<Department> Department { get;private set; }
         public IBase<Room> room { get;private set; }
+
+        public IBase<Student> students { get; private set; }
+
+        public IBase<Lecturer> Lecturers { get; private set; }
+
+        public IBase<Course> Courses  { get; private set; }
+
+        public IBase<Question> Questions { get; private set; }
+
+        public IBase<Course_Department> Course_Department { get; private set; }
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             dept=new Dept(_context);
             Department=new Base<Department>(_context);
             room=new Base<Room>(_context);
+            students=new Base<Student>(_context);
+            Lecturers = new Base<Lecturer>(_context);
+            Courses=new Base<Course>(_context);
+            Questions = new Base<Question>(_context);
+            Course_Department=new Base<Course_Department>(_context);
         }
         public int complet()
         {

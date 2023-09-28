@@ -51,7 +51,7 @@ namespace OES.EF.Repositories
             return query.SingleOrDefault(criteria);
         }
 
-        public async Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
+        public async Task<T> FindAsync(Expression<Func<T, bool>> criteria , string[] includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
 
@@ -206,6 +206,12 @@ namespace OES.EF.Repositories
         public async Task<int> CountAsync(Expression<Func<T, bool>> criteria)
         {
             return await _context.Set<T>().CountAsync(criteria);
+        }
+
+        public bool isFound(Expression<Func<T, bool>> criteria)
+        {
+            var isEnrolled = _context.Set<T>().Any(criteria);
+            return isEnrolled;
         }
     }
 }

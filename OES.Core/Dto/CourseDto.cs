@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace OES.Core.Dto
 {
-    public class RoomDto
+    public class CourseDto
     {
-        [StringLength(100)]
+        [MaxLength(100)]
         public string name { get; set; }
-        [StringLength(100)]
-        public string Department { get; set; }
+      
     }
 }

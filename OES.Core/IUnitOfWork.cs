@@ -13,6 +13,11 @@ namespace OES.Core
         IDept dept { get; }
         IBase<Room> room { get; }
         IBase<Department> Department { get; }
+        IBase<Student> students { get; }
+        IBase<Lecturer> Lecturers { get; }
+        IBase<Course> Courses { get; }
+        IBase<Question> Questions { get; }
+        IBase<Course_Department> Course_Department { get; }
         int complet();
     }
 }

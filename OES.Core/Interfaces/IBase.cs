@@ -10,6 +10,7 @@ namespace OES.Core.Interfaces
 {
     public interface IBase<T> where T : class
     {
+        bool isFound(Expression<Func<T, bool>> criteria);
         T GetById(int id);
         Task<T> GetByIdAsync(int id);
         IEnumerable<T> GetAll();
