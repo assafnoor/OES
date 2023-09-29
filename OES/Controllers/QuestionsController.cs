@@ -45,8 +45,8 @@ namespace OES.Controllers
             _unitOfWork.complet();
             var res = _mapper.Map<QuestionDetailsDto>(data);
             return Ok(res);
-
         }
+
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {

@@ -20,6 +20,7 @@ namespace OES.Core
         IBase<Question> Questions { get; }
         IBase<Course_Department> Course_Department { get; }
         IBase<Lecturer_Room> Lecturer_Room { get; }
+        IBase<C_Exam> c_e { get; }
         int complet();
         
     }

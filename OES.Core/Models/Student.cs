@@ -5,6 +5,5 @@
         public List<S_Exam> s_exams { get; set; }
         public int RoomId { get; set; }
         public Room room { get; set; }
-    
     }
 }

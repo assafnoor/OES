@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using OES.Core;
 using OES.Core.Dto;
 using OES.Core.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OES.Controllers
 {
@@ -27,7 +29,25 @@ namespace OES.Controllers
            var result = _mapper.Map<CourseDetailsDto>(data);
             return Ok(result);
         }
-    
+        [HttpPost("AddLecturerToCourse")]
+        public async Task<IActionResult> AddLecturerToCourse(AddLecturerToCourse dto)
+        {
+            var lect = _unitOfWork.Lecturers.Find(l => l.Name == dto.lectname);
+            if (lect is null) return BadRequest();
+            var coursename = _unitOfWork.Courses.Find(l => l.Name == dto.coursename);
+            if (coursename is null) return BadRequest();
+
+            if (lect.course == coursename) return BadRequest("lectcouurse");
+
+            lect.course=coursename;
+            _unitOfWork.complet();
+
+            var res = _unitOfWork.dept.ByIdCorsetWitheDetails(coursename.Id);
+            var result = _mapper.Map<CourseDetailsDto>(res);
+            return Ok(result);
+       
+        }
+
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
@@ -36,6 +56,13 @@ namespace OES.Controllers
             var data = _mapper.Map<List<CourseDetailsDto>>(result);
             return Ok(data);
 
+        }
+        [HttpGet("GetAllWitheDetails")]
+        public async Task<IActionResult> GetAllWitheDetails()
+        {
+           var result = _unitOfWork.dept.GetAllCorsetWitheDetails();
+            var data = _mapper.Map<List<CourseDetailsDto>>(result);
+            return Ok(data);
         }
         [HttpGet("GetById{id}")]
         public async Task<IActionResult> GetAll(int id)

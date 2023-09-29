@@ -36,5 +36,14 @@ namespace OES.EF.Repositories
                   .Any(sc => sc.CourseId == course.Id && sc.DepartmentId == department.Id);
             return isEnrolled;
         }
+        public List<Course> GetAllCorsetWitheDetails()
+        {
+            return _context.Courses.Include(r => r.lecturers).Include(s=>s.questions).Include(dc => dc.course_departments).ThenInclude(c => c.departments).ToList();
+        }
+        public Course ByIdCorsetWitheDetails(int id)
+        {
+            return _context.Courses.Where(c=>c.Id==id).Include(r => r.lecturers).Include(s => s.questions).Include(dc => dc.course_departments).ThenInclude(c => c.departments).FirstOrDefault();
+        }
+
     }
 }

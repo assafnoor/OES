@@ -52,10 +52,14 @@ namespace OES.Controllers
         {
             var result = _unitOfWork.students.GetById(id);
             if (result == null) return NotFound();
+            var room=_unitOfWork.room.Find(r=>r.Name==dto.room);
+            if(room == null) return NotFound(); 
             result.Name = dto.Name;
+            result.room = room;
             _unitOfWork.students.Update(result);
             _unitOfWork.complet();
-            return Ok(result);
+            var data = _mapper.Map<StudentDetailsDto>(result);
+            return Ok(data);
         }   
         [HttpDelete("Delete{id}")]
         public async Task<IActionResult> Delet(int id)

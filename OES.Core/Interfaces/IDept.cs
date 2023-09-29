@@ -13,5 +13,7 @@ namespace OES.Core.Interfaces
         List<Department> GetAllDeptWitheDetails();
         List<Department> GetByIdDeptWitheDetails(int id);
         bool isEnrolled(DeptDto dto, Department department, Course course);
+        List<Course> GetAllCorsetWitheDetails();
+        Course ByIdCorsetWitheDetails(int id);
     }
 }

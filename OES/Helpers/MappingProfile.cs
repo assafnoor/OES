@@ -14,28 +14,20 @@ namespace OES.Helpers
               .ForMember(dest => dest.rooms, opt => opt.MapFrom(src => src.rooms.Select(b => b.Name).ToList()))
               .ForMember(dest => dest.courses, opt => opt.MapFrom(src => src.course_departments.Select(cd => cd.courses.Name).ToList()));
 
-
-
-
-
             CreateMap<Room, RoomDetailsDto>()
               .ForMember(dest => dest.Department, opt => opt.MapFrom(src => src.department.Name))
               .ForMember(dest => dest.students, opt => opt.MapFrom(src => src.students.Select(s => s.Name).ToList()))
              .ForMember(dest => dest.lecturers, opt => opt.MapFrom(src => src.lecturers_rooms.Select(lr=>lr.lecturer.Name).ToList()));
 
 
-            //CreateMap<Room, Test>()
-            //  .ForMember(dest => dest.Department, opt => opt.MapFrom(src => src.department.Name))
-            //  .ForMember(dest => dest.students, opt => opt.MapFrom(src => src.students.Select(s => s.Name)))
-            //  .ForMember(dest => dest.lecturers, opt => opt.MapFrom(src => src.lecturers_rooms.Select(lr => lr.lecturer.Name).ToList()));
-            // // .ForMember(dest => dest.lecturers.Select(l=>l.), opt => opt.MapFrom(src => src.lecturers_rooms.Select(lr=>lr.lecturer.Name).ToList()));
-
-
-
             CreateMap<Student, StudentDetailsDto>()
-              .ForMember(dest => dest.Room, opt => opt.MapFrom(src => src.room.Name)); 
+              .ForMember(dest => dest.Room, opt => opt.MapFrom(src => src.room.Name));
 
-            CreateMap<Course, CourseDetailsDto>();
+            CreateMap<Course, CourseDetailsDto>()
+                .ForMember(dest => dest.questions, opt => opt.MapFrom(src => src.questions.Select(s => s.ques).ToList()))
+                .ForMember(dest => dest.name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.departments, opt => opt.MapFrom(src => src.course_departments.Select(s => s.departments.Name).ToList()))
+                .ForMember(dest => dest.lecturers, opt => opt.MapFrom(src => src.lecturers.Select(s => s.Name).ToList()));
 
 
             //CreateMap<Lecturer, LecturerDetailsDto>()
@@ -68,6 +60,11 @@ namespace OES.Helpers
                         .ForMember(dest => dest.correctAns, opt => opt.MapFrom(src => src.correctAns))
                         .ForMember(dest => dest.lecturer, opt => opt.MapFrom(src => src.lecturer.Name))
                         .ForMember(dest => dest.course, opt => opt.MapFrom(src => src.course.Name));
+
+            CreateMap<C_Exam, C_ExamDetailsDto>()
+                       .ForMember(dest => dest.course, opt => opt.MapFrom(src => src.course.Name))
+                       .ForMember(dest => dest.lecturer, opt => opt.MapFrom(src => src.lecturer.Name));
+                    
 
 
         }

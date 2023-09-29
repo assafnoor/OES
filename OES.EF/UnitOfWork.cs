@@ -32,6 +32,8 @@ namespace OES.EF
 
         public IBase<Lecturer_Room> Lecturer_Room { get; private set; }
 
+        public IBase<C_Exam> c_e { get; private set; }
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -45,6 +47,7 @@ namespace OES.EF
             Course_Department=new Base<Course_Department>(_context);
             rom = new Rom(_context);
             Lecturer_Room=new Base<Lecturer_Room>(_context);
+            c_e=new Base<C_Exam>(_context);
         }
         public int complet()
         {
