@@ -45,5 +45,10 @@ namespace OES.EF.Repositories
         {
             return _context.Lecturers.Where(l=>l.Id==id).Include(s => s.course).Include(d => d.questions).Include(lr => lr.lecturers_rooms).ThenInclude(l => l.room).FirstOrDefault();
         }
+
+        public List<Question> customQuery(List<string> data)
+        {
+            return   _context.Questions.Where(item => data.Contains(item.ques)).ToList();
+        }
     }
 }
