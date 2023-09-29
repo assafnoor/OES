@@ -32,12 +32,72 @@ namespace OES.Controllers
             return Ok(data);
 
         }
+        [HttpPost("LecturerToRoom")]
+        public ActionResult<RoomDetailsDto> AddLecturerToRoom(AddLecturerToRoomDTo dTo)
+        {
+            var room = _unitOfWork.room.Find(r => r.Name == dTo.RoomName);
+            if(room is null) { return BadRequest("room"); }
+            var Lect =  _unitOfWork.Lecturers.Find(l => l.Name == dTo.LecturerName);
+            if (Lect is null) { return BadRequest("lecturer"); }
+            if (_unitOfWork.rom.isEnrolled(room, Lect))
+                return BadRequest("lecturer Room");
+            var lr = new Lecturer_Room { 
+                room = room,
+                lecturer = Lect,
+            };
+            _unitOfWork.Lecturer_Room.Add(lr);
+            _unitOfWork.complet();
+            var result1 = _unitOfWork.rom.GetByIdRoomWitheDetails(room.Id);
+            var data = _mapper.Map<RoomDetailsDto>(result1);
+            return Ok(data);
+
+        }
+        [HttpDelete("DeleteLecturerToRoom")]
+        public async Task<ActionResult<RoomDetailsDto>> DeleteLecturerToRoom(AddLecturerToRoomDTo dTo)
+        {
+            var room = _unitOfWork.room.Find(r => r.Name == dTo.RoomName);
+            if (room is null) { return BadRequest("room"); }
+            var Lect = _unitOfWork.Lecturers.Find(l => l.Name == dTo.LecturerName);
+            if (Lect is null) { return BadRequest("lecturer"); }
+            if (! _unitOfWork.rom.isEnrolled(room, Lect))
+                return BadRequest("lecturer Room");
+            var lr = new Lecturer_Room
+            {
+                room = room,
+                lecturer = Lect,
+            };
+            _unitOfWork.Lecturer_Room.Delete(lr);
+            _unitOfWork.complet();
+            var result1 = _unitOfWork.rom.GetByIdRoomWitheDetails(room.Id);
+            var data = _mapper.Map<RoomDetailsDto>(result1);
+            return Ok(data);
+
+        }
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll() {
             string[] includes = { "department" };
             //  var result=  _unitOfWork.room.GetAll();
             var result1 = await _unitOfWork.room.FindAllAsync(x => x.Id != 0, includes);
             var data = _mapper.Map<List<RoomDetailsDto>>(result1);
+            return Ok(data);
+        }
+
+        [HttpGet("GetAllWitheDetails")]
+        public async Task<IActionResult> GetAllWitheDetails()
+        {
+           var result1 =  _unitOfWork.rom.GetAllRoomWitheDetails();
+           
+            var data = _mapper.Map<List<RoomDetailsDto>>(result1);
+          
+            return Ok(data);
+        }
+        [HttpGet("RoomByIdWitheDetails{id}")]
+        public async Task<IActionResult> GetByIdWitheDetails(int id)
+        {
+            var result1 = _unitOfWork.rom.GetByIdRoomWitheDetails(id);
+
+            var data = _mapper.Map<RoomDetailsDto>(result1);
+
             return Ok(data);
         }
         [HttpGet("GetById{id}")]

@@ -39,6 +39,23 @@ namespace OES.Controllers
             return Ok(data);
 
         }
+        [HttpGet("GetAllWitheDetails")]
+        public async Task<IActionResult> GetAllWitheDetails()
+        {
+            var result = _unitOfWork.rom.GetAllLectWitheDetails();
+            var data = _mapper.Map<List<LecturerDetailsDto>>(result);
+            return Ok(data);
+
+        }
+        [HttpGet("ByidWitheDetails{id}")]
+        public async Task<ActionResult<LecturerDetailsDto>> GetByidWitheDetails(int id)
+        {
+            var result = _unitOfWork.rom.GetByIdLecturerWitheDetails(id);
+            if (result == null) return NotFound();
+            var data = _mapper.Map<LecturerDetailsDto>(result);
+            return Ok(data);
+
+        }
         [HttpGet("GetById{id}")]
         public async Task<IActionResult> GetAll(int id)
         {

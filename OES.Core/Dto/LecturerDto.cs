@@ -13,5 +13,7 @@ namespace OES.Core.Dto
         public string name { get; set; }
         [StringLength(100)]
         public string CourseName { get; set; } 
+  
+
     }
 }

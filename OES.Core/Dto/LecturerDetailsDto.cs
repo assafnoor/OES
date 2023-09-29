@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OES.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace OES.Core.Dto
     {
         public string name { get; set; }
         public string courseName { get; set; }
+        public List<string> questions { get; set; }
+        public List<string> rooms { get; set; }
     }
 }

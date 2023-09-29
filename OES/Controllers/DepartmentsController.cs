@@ -48,7 +48,7 @@ namespace OES.Controllers
             var dr = dept.rooms.FirstOrDefault(c => c.Name == dto.RoomName);
             if (dr != null) return BadRequest(" alredy added");
 
-            dept.rooms.FirstOrDefault(room => room.Name == dto.RoomName);
+           // dept.rooms.FirstOrDefault(room => room.Name == dto.RoomName);
             dept.rooms.Add(room);
             _unitOfWork.complet();
             var result = _unitOfWork.dept.GetByIdDeptWitheDetails(dept.Id);
